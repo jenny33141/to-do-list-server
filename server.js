@@ -1,6 +1,5 @@
 const express = require("express");
-// const path = require("path");
-const { getTotal, addItem } = require("./app.js");
+const { getTotal, addItem, removeItem } = require("./app.js");
 const bodyParser = require("body-parser");
 const app = express();
 const port = process.env.PORT || 3010;
@@ -23,6 +22,13 @@ app.get("/data", async (req, res) => {
   res.send({
     data: totalItems
   });
+});
+app.get("/add", async (req, res) => {
+  await addItem(req.query.address);
+});
+app.get("/remove", async (req, res) => {
+  console.log(req.query.address)
+  await removeItem(req.query.address);
 });
 
 app.post("/register", (req, res) => {
